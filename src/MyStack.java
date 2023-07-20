@@ -1,20 +1,22 @@
 import java.util.NoSuchElementException;
 
-public class MyStack {
+public class MyStack<T> {
 
-    private Object[] data;
+    private T[] data;
     private int top;
     private int size;
 
+    @SuppressWarnings("unchecked")
     public MyStack() {
-        data = new Object[10];
+        data = (T[]) new Object[10];
         top = -1;
         size = 0;
     }
 
-    public void push(Object value) {
+    public void push(T value) {
         if (size == data.length) {
-            Object[] newData = new Object[data.length * 2];
+            @SuppressWarnings("unchecked")
+            T[] newData = (T[]) new Object[data.length * 2];
             System.arraycopy(data, 0, newData, 0, data.length);
             data = newData;
         }
@@ -22,12 +24,11 @@ public class MyStack {
         data[top] = value;
         size++;
     }
+
     public void remove(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
-
-        Object value = data[index];
 
         for (int i = index; i < size - 1; i++) {
             data[i] = data[i + 1];
@@ -35,20 +36,20 @@ public class MyStack {
 
         data[size - 1] = null;
         size--;
-
+        top--;
     }
 
-    public Object pop() {
+    public T pop() {
         if (size == 0) {
             throw new NoSuchElementException();
         }
-        Object value = data[top];
+        T value = data[top];
         top--;
         size--;
         return value;
     }
 
-    public Object peek() {
+    public T peek() {
         if (size == 0) {
             throw new NoSuchElementException();
         }

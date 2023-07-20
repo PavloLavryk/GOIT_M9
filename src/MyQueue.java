@@ -1,42 +1,48 @@
 import java.util.NoSuchElementException;
 
-public class MyQueue {
+public class MyQueue<T> {
 
-    private Object[] data;
+    private T[] data;
     private int head;
     private int tail;
     private int size;
 
+    @SuppressWarnings("unchecked")
     public MyQueue() {
-        data = new Object[10];
+        data = (T[]) new Object[10];
         head = 0;
         tail = 0;
         size = 0;
     }
 
-    public void add(Object value) {
+    public void add(T value) {
         if (size == data.length) {
-            Object[] newData = new Object[data.length * 2];
-            System.arraycopy(data, 0, newData, 0, data.length);
+            @SuppressWarnings("unchecked")
+            T[] newData = (T[]) new Object[data.length * 2];
+            for (int i = 0; i < size; i++) {
+                newData[i] = data[(head + i) % data.length];
+            }
             data = newData;
+            head = 0;
+            tail = size;
         }
         data[tail] = value;
         tail = (tail + 1) % data.length;
         size++;
     }
 
-    public Object peek() {
+    public T peek() {
         if (size == 0) {
             throw new NoSuchElementException();
         }
         return data[head];
     }
 
-    public Object poll() {
+    public T poll() {
         if (size == 0) {
             throw new NoSuchElementException();
         }
-        Object value = data[head];
+        T value = data[head];
         head = (head + 1) % data.length;
         size--;
         return value;

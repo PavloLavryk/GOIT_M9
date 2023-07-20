@@ -1,7 +1,7 @@
-public class MyLinkedList {
+public class MyLinkedList<T> {
 
-    private Node head;
-    private Node tail;
+    private Node<T> head;
+    private Node<T> tail;
     private int size;
 
     public MyLinkedList() {
@@ -10,8 +10,8 @@ public class MyLinkedList {
         size = 0;
     }
 
-    public void add(Object value) {
-        Node newNode = new Node(value, null, null);
+    public void add(T value) {
+        Node<T> newNode = new Node<>(value, null, null);
         if (head == null) {
             head = newNode;
             tail = newNode;
@@ -27,7 +27,7 @@ public class MyLinkedList {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
-        Node currentNode = head;
+        Node<T> currentNode = head;
         for (int i = 0; i < index; i++) {
             currentNode = currentNode.next;
         }
@@ -54,24 +54,24 @@ public class MyLinkedList {
         return size;
     }
 
-    public Object get(int index) {
+    public T get(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
-        Node currentNode = head;
+        Node<T> currentNode = head;
         for (int i = 0; i < index; i++) {
             currentNode = currentNode.next;
         }
         return currentNode.value;
     }
 
-    private class Node {
+    private static class Node<T> {
 
-        Object value;
-        Node prev;
-        Node next;
+        T value;
+        Node<T> prev;
+        Node<T> next;
 
-        public Node(Object value, Node prev, Node next) {
+        public Node(T value, Node<T> prev, Node<T> next) {
             this.value = value;
             this.prev = prev;
             this.next = next;
