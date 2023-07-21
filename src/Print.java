@@ -31,23 +31,23 @@ public class Print  {
                 map.put(i, String.valueOf(i));
             }
 
-            // Get the value for a random key
+
             int get = 500;
             String value = map.get(get);
             System.out.println("The value for key " + get + " is " + value);
 
-            // Remove a random key
+
             int remove = 100;
             map.remove(remove);
 
-            // Check the size of the map
+
             int size = map.size();
             System.out.println("The size of the map is " + size);
 
-            // Clear the map
+
             map.clear();
 
-            // Check that the map is empty
+
             int newSize = map.size();
             System.out.println("The size of the map after clearing is " + newSize);
 
