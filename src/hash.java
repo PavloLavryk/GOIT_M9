@@ -1,9 +1,9 @@
-public class MyHashMap<K, V> {
+public class hash<K, V> {
 
     private Node<K, V> head;
     private int size;
 
-    public MyHashMap() {
+    public hash() {
         head = null;
         size = 0;
     }

@@ -12,6 +12,11 @@ public class MyStack<T> {
         top = -1;
         size = 0;
     }
+    public void checkIndexValidity(int index, int size) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+    }
 
     public void push(T value) {
         if (size == data.length) {
@@ -26,9 +31,7 @@ public class MyStack<T> {
     }
 
     public void remove(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException();
-        }
+        checkIndexValidity(index, size);
 
         for (int i = index; i < size - 1; i++) {
             data[i] = data[i + 1];

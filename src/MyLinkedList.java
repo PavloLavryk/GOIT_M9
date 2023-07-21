@@ -22,11 +22,14 @@ public class MyLinkedList<T> {
         }
         size++;
     }
-
-    public void remove(int index) {
+    public void checkIndexValidity(int index, int size) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
+    }
+
+    public void remove(int index) {
+        checkIndexValidity(index, size);
         Node<T> currentNode = head;
         for (int i = 0; i < index; i++) {
             currentNode = currentNode.next;
@@ -55,9 +58,7 @@ public class MyLinkedList<T> {
     }
 
     public T get(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException();
-        }
+        checkIndexValidity(index, size);
         Node<T> currentNode = head;
         for (int i = 0; i < index; i++) {
             currentNode = currentNode.next;

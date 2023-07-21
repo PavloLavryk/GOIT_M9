@@ -7,6 +7,11 @@ public class MyArrayList<T> {
         data = new Object[DEFAULT_CAPACITY];
         size = 0;
     }
+    public void checkIndexValidity(int index, int size) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+    }
 
     public void add(T value) {
         if (size == data.length) {
@@ -19,9 +24,7 @@ public class MyArrayList<T> {
     }
 
     public void remove(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException();
-        }
+        checkIndexValidity(index, size);
         for (int i = index; i < size - 1; i++) {
             data[i] = data[i + 1];
         }
@@ -39,9 +42,7 @@ public class MyArrayList<T> {
 
 
     public T get(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException();
-        }
+        checkIndexValidity(index, size);
         return (T) data[index];
     }
 }

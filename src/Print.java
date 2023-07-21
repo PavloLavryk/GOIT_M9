@@ -24,7 +24,7 @@ public class Print  {
         }
 
         {
-            MyHashMap<Integer, String> myHashMap = new MyHashMap<>();
+            hash<Integer, String> myHashMap = new hash<>();
 
             int elementsToAdd = 1000;
             for (int i = 0; i < elementsToAdd; i++) {
