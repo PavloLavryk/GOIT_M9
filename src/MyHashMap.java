@@ -1,10 +1,21 @@
 public class MyHashMap<K, V> {
 
+    private static final int DEFAULT_CAPACITY = 16;
+    private static final float DEFAULT_LOAD_FACTOR = 0.75f;
+
     private Node<K, V>[] table;
     private int size;
+    private int threshold;
+    private float loadFactor;
 
     public MyHashMap() {
-        table = new Node[16];
+        this(DEFAULT_CAPACITY, DEFAULT_LOAD_FACTOR);
+    }
+
+    public MyHashMap(int initialCapacity, float loadFactor) {
+        table = new Node[initialCapacity];
+        this.loadFactor = loadFactor;
+        threshold = (int) (initialCapacity * loadFactor);
     }
 
     public void put(K key, V value) {
@@ -28,6 +39,10 @@ public class MyHashMap<K, V> {
         }
 
         size++;
+
+        if (size >= threshold) {
+            resize();
+        }
     }
 
     public V get(K key) {
@@ -73,11 +88,28 @@ public class MyHashMap<K, V> {
     }
 
     public void clear() {
-        table = new Node[16];
+        table = new Node[DEFAULT_CAPACITY];
         size = 0;
     }
 
-    private class Node<K, V> {
+    private void resize() {
+        Node<K, V>[] newTable = new Node[table.length * 2];
+        threshold = (int) (newTable.length * loadFactor);
+
+        for (Node<K, V> node : table) {
+            while (node != null) {
+                int index = node.key.hashCode() % newTable.length;
+                Node<K, V> next = node.next;
+                node.next = newTable[index];
+                newTable[index] = node;
+                node = next;
+            }
+        }
+
+        table = newTable;
+    }
+
+    private static class Node<K, V> {
 
         private K key;
         private V value;
@@ -88,5 +120,6 @@ public class MyHashMap<K, V> {
             this.value = value;
             this.next = null;
         }
+
     }
 }
